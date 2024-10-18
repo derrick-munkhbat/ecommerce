@@ -6,7 +6,7 @@ function ArticleCard({ article, onEdit, onDelete }) {
       <img
         src={article.image}
         alt={article.topic}
-        className="w-full h-48 object-cover"
+        className="w-full h-48 object-cover border rounded-"
       />
       <div className="flex-grow p-4">
         <h2 className="text-lg font-bold">{article.topic}</h2>
