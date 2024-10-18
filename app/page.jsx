@@ -23,17 +23,16 @@ const HomePage = () => {
 
   const handleSubmit = (data) => {
     if (editingArticle) {
-      // Update the existing article
+      // Update existing article
       setArticles((prev) =>
         prev.map((article) =>
-          article.topic === editingArticle.topic ? data : article
+          article.id === editingArticle.id ? { ...article, ...data } : article
         )
       );
     } else {
-      // Add new article to the list
-      setArticles((prev) => [...prev, data]);
+      // Add new article
+      setArticles((prev) => [...prev, { id: Date.now(), ...data }]);
     }
-    handleCloseModal();
   };
 
   const handleEdit = (article) => {
@@ -46,8 +45,8 @@ const HomePage = () => {
   };
 
   return (
-    <div>
-      <h3 className="flex items-center justify-center text-3xl font-bold p-5">
+    <div className="mx-auto w-full mb-10">
+      <h3 className="flex items-center justify-center text-3xl font-bold mt-5">
         Articles
       </h3>
       <CreateArticleButton onClick={handleOpenModal} />
@@ -57,7 +56,7 @@ const HomePage = () => {
         onSubmit={handleSubmit}
         initialData={editingArticle} // Pass the article data to be edited
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid-cols-1 gap-5 flex flex-wrap">
         {articles.map((article, index) => (
           <ArticleCard
             key={index}
