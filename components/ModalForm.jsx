@@ -19,10 +19,9 @@ const ModalForm = ({ isOpen, onClose, onSubmit, initialData }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Call the onSubmit function passed from the parent
     onSubmit({ topic, image, description, date });
-    resetForm(); // Reset the form fields after submission
-    onClose(); // Close the modal after submission
+    resetForm();
+    onClose();
   };
 
   const resetForm = () => {

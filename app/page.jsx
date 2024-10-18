@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import CreateArticleButton from "../components/CreateArticleButton";
 import ModalForm from "../components/ModalForm";
 import ArticleCard from "../components/ArticleCard";
-import mockArticles from "../api/mockData";
+import mockArticles from "../api/mockData.json";
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [articles, setArticles] = useState([]);
   const [articles, setArticles] = useState(mockArticles);
   const [editingArticle, setEditingArticle] = useState(null); // Track the article being edited
 
@@ -40,8 +39,8 @@ const HomePage = () => {
     setIsModalOpen(true); // Open the modal
   };
 
-  const handleDelete = (article) => {
-    setArticles((prev) => prev.filter((a) => a.topic !== article.topic)); // Remove the specific article
+  const handleDelete = (id) => {
+    setArticles(articles.filter((article) => article.id !== id));
   };
 
   return (
@@ -57,12 +56,12 @@ const HomePage = () => {
         initialData={editingArticle} // Pass the article data to be edited
       />
       <div className="grid-cols-1 gap-5 flex flex-wrap">
-        {articles.map((article, index) => (
+        {articles.map((article) => (
           <ArticleCard
-            key={index}
+            key={article.id}
             article={article}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={() => handleDelete(article.id)} // Pass the article's id to handleDelete
           />
         ))}
       </div>
