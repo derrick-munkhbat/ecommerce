@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 function ArticleCard({ article, onEdit, onDelete }) {
   const router = useRouter();
 
-  const handleViewClick = () => {
-    // Navigate to the article detail page using the article ID
-    router.push(`/articles/${article.id}`);
-  };
+  // const handleViewClick = () => {
+  //   // Navigate to the article detail page using the article ID
+  //   router.push(`/articles/${article.id}`);
+  // };
 
   return (
     <div className="flex flex-col w-[300px] h-[300px] mx-auto bg-white rounded-xl shadow-md overflow-hidden p-5">
@@ -23,7 +23,7 @@ function ArticleCard({ article, onEdit, onDelete }) {
       </div>
       <div className="flex justify-between mt-4">
         <button
-          onClick={handleViewClick}
+          // onClick={handleViewClick}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
         >
           View
