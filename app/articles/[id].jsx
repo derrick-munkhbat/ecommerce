@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import mockData from "../../api/mockData.json";
+import mockData from "../api/mockData.json";
 import { useEffect, useState } from "react";
 
 const ArticleDetails = () => {
@@ -9,6 +9,7 @@ const ArticleDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Router is ready:", router.isReady);
     if (router.isReady) {
       setLoading(false);
     }
