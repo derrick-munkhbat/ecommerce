@@ -1,34 +1,61 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import mockArticles from "../../../api/mockData.json"; // Adjust the path as necessary
+import mockData from "../../api/mockData.json";
+import { useEffect, useState } from "react";
 
-const FullStoryPage = () => {
+const ArticleDetails = () => {
   const router = useRouter();
-  const { id } = router.query; // Get the article ID from the URL
+  const [loading, setLoading] = useState(true);
 
-  // Check if id is available
-  if (!id) {
-    return <div>Loading...</div>; // Show a loading state while the ID is being fetched
+  useEffect(() => {
+    if (router.isReady) {
+      setLoading(false);
+    }
+  }, [router.isReady]);
+
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+        <p>Please wait while we load the article details.</p>
+      </div>
+    );
   }
 
-  const article = mockArticles.find((article) => article.id === parseInt(id));
+  const { id } = router.query;
+
+  if (!id) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+        <p>Please wait while we load the article details.</p>
+      </div>
+    );
+  }
+
+  const articleId = parseInt(id);
+  const article = mockData.find((article) => article.id === articleId);
 
   if (!article) {
-    return <div>Article not found</div>;
+    console.error("Article not found for ID:", articleId);
+    return (
+      <div>
+        <h1>Article not found</h1>
+        <p>Sorry, we couldn't find the article you're looking for.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-4xl font-bold">{article.title}</h1>
-      <img
-        src={article.image}
-        alt={article.title}
-        className="w-full h-64 object-cover"
-      />
-      <p className="mt-4">{article.content}</p>
+    <div>
+      <h1>{article.topic}</h1>
+      <p>{article.description}</p>
+      <img src={article.image} alt={article.topic} />
+      <p>Date: {article.date}</p>
+      <button onClick={() => router.back()}>Back to article list</button>
     </div>
   );
 };
 
-export default FullStoryPage;
+export default ArticleDetails;

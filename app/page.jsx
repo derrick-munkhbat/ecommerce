@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import CreateArticleButton from "../components/CreateArticleButton";
 import ModalForm from "../components/ModalForm";
 import ArticleCard from "../components/ArticleCard";
-import mockArticles from "./api/mockData.json";
+import mockData from "./api/mockData.json";
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [articles, setArticles] = useState(mockArticles);
+  const [articles, setArticles] = useState(mockData);
   const [editingArticle, setEditingArticle] = useState(null); // Track the article being edited
 
   const handleOpenModal = () => {
