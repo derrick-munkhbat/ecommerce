@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import CreateArticleButton from "../components/CreateArticleButton";
 import ModalForm from "../components/ModalForm";
 import ArticleCard from "../components/ArticleCard";
-import mockArticles from "../api/mockData.json";
+import mockArticles from "./api/mockData.json";
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

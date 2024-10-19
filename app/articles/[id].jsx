@@ -1,18 +1,18 @@
 import { useRouter } from "next/router";
-import mockArticles from "./api/mockData.json";
+import mockArticles from "../api/mockData.json";
 
 const ArticleDetails = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log("Router ID:", id); // Log the ID from the router
-  console.log("Mock Articles:", mockArticles); // Log the articles array
+  if (!id) {
+    return <div>Loading...</div>; // Show loading state
+  }
 
-  // Find the article based on the id
   const article = mockArticles.find((article) => article.id === parseInt(id));
 
   if (!article) {
-    return <div>Article not found</div>;
+    return <div>Article not found</div>; // Handle article not found
   }
 
   return (
