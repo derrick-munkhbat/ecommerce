@@ -1,14 +1,17 @@
 // controllers/productController.js
-const pool = require("../db");
+const { Pool } = require("pg"); // Import PostgreSQL client
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // Ensure you have your connection string in .env
+});
 
 // Get all products
 const getProducts = async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM products");
     res.json(result.rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -21,9 +24,9 @@ const createProduct = async (req, res) => {
       [title, description, price]
     );
     res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+  } catch (error) {
+    console.error("Error creating product:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -37,12 +40,12 @@ const updateProduct = async (req, res) => {
       [title, description, price, id]
     );
     if (result.rows.length === 0) {
-      return res.status(404).send("Product not found");
+      return res.status(404).json({ error: "Product not found" });
     }
     res.json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -55,12 +58,12 @@ const deleteProduct = async (req, res) => {
       [id]
     );
     if (result.rows.length === 0) {
-      return res.status(404).send("Product not found");
+      return res.status(404).json({ error: "Product not found" });
     }
-    res.json({ message: "Product deleted" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
+    res.status(204).send(); // No content to send back
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

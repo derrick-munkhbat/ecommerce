@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const ModalForm = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [date, setDate] = useState("");
 
@@ -16,7 +17,7 @@ const ModalForm = ({ onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-        <h2 className="text-xl font-bold mb-4">New Article</h2>
+        <h2 className="text-xl font-bold mb-4">New Item</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Title</label>
@@ -35,6 +36,16 @@ const ModalForm = ({ onClose }) => {
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Price</label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               className="border rounded-lg p-2 w-full"
               required
             />
