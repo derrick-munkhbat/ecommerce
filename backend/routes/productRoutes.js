@@ -3,15 +3,15 @@ const router = express.Router();
 const productController = require("../controllers/productController");
 
 // Get all products
-router.get("/products", productController.getProducts);
+router.get("/", productController.getProducts);
 
 // Create a new product
-router.post("/products", productController.createProduct);
+router.post("/", productController.createProduct);
 
 // Update a product
-router.put("/products/:id", productController.updateProduct); // Added slash before :id
+router.put("/:id", productController.updateProduct);
 
 // Delete a product
-router.delete("/products/:id", productController.deleteProduct); // Added slash before :id
+router.delete("/:id", productController.deleteProduct);
 
 module.exports = router;
