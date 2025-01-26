@@ -1,8 +1,5 @@
 // controllers/productController.js
-const { Pool } = require("pg"); // Import PostgreSQL client
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // Ensure you have your connection string in .env
-});
+const pool = require("../db"); // Import the pool from db.js
 
 // Get all products
 const getProducts = async (req, res) => {
