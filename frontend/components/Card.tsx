@@ -10,6 +10,8 @@ interface CardProps {
   onAddToCart: () => void; // Function to handle adding to cart
   onViewDetails: () => void; // Function to handle viewing details
   onAddToFavorites: () => void; // Function to handle adding to favorites
+  onEdit: () => void; // Function to handle editing the product
+  onDelete: () => void; // Function to handle deleting the product
 }
 
 const Card: React.FC<CardProps> = ({
@@ -33,7 +35,7 @@ const Card: React.FC<CardProps> = ({
       <h4 className="text-xl font-semibold mt-2">{title}</h4>
       <p className="mt-2 text-gray-600">{description}</p>
       <p className="mt-2 font-bold">${Number(price).toFixed(2)}</p>
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-4 gap-2">
         <button
           onClick={onAddToCart}
           className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
@@ -48,9 +50,9 @@ const Card: React.FC<CardProps> = ({
         </button>
         <button
           onClick={onAddToFavorites}
-          className="text-gray-500 hover:text-red-500"
+          className="bg-red-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
-          ❤️ {/* Heart icon for Add to Favorites */}
+          Add to Favorites {/* Heart icon for Add to Favorites */}
         </button>
       </div>
     </div>
