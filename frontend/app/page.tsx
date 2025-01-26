@@ -1,14 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios"; // Import Axios
+// pages/HomePage.js
+
+import React, { useState } from "react";
 import ModalForm from "../components/ModalForm";
+import Card from "../components/Card"; // Import the Card component
+import useFetchProducts from "../hooks/useFetchProducts";
+
+const mockUser = {
+  username: "testuser",
+  email: "testuser@example.com",
+};
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [products, setProducts] = useState([]); // State to hold products
-  const [loading, setLoading] = useState(true); // State to manage loading state
-  const [error, setError] = useState(null); // State to manage error messages
+  const [isSignedIn, setIsSignedIn] = useState(false); // State to track sign-in status
+  const { products, loading, error } = useFetchProducts();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -18,59 +25,61 @@ const HomePage = () => {
     setIsModalOpen(false);
   };
 
-  // Fetch products from the API using Axios
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true); // Set loading to true before fetching
-      setError(null); // Reset error state before fetching
-      try {
-        const response = await axios.get("http://localhost:8000/api/products"); // Use Axios to fetch data
-        setProducts(response.data); // Set the fetched products to state
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setError(error.response ? error.response.data : error.message); // Set error message in state
-      } finally {
-        setLoading(false); // Set loading to false after fetching
-      }
-    };
+  const handleSignIn = () => {
+    setIsSignedIn(true); // Set the user as signed in
+  };
 
-    fetchProducts();
-  }, []);
+  const handleSignOut = () => {
+    setIsSignedIn(false); // Clear the user state
+  };
 
   return (
     <div className="mx-auto w-full mb-10">
       <h3 className="flex items-center justify-center text-3xl font-bold mt-5">
         Products
       </h3>
-      <button
-        onClick={openModal}
-        className="border-2 border-blue-500 text-blue-500 rounded-lg p-3 hover:bg-blue-500 hover:text-white transition duration-300"
-      >
-        + New item
-      </button>
+      {isSignedIn ? (
+        <div>
+          <p>Welcome, {mockUser.username}!</p>
+          <button
+            onClick={handleSignOut}
+            className="border-2 border-red-500 text-red-500 rounded-lg p-3 hover:bg-red-500 hover:text-white transition duration-300"
+          >
+            Sign Out
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={handleSignIn}
+          className="border-2 border-blue-500 text-blue-500 rounded-lg p-3 hover:bg-blue-500 hover:text-white transition duration-300"
+        >
+          Sign In
+        </button>
+      )}
 
-      {/* Display loading state */}
       {loading && <p className="text-center">Loading products...</p>}
-
-      {/* Display error state */}
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Display products */}
       {!loading && !error && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
           {products.length > 0 ? (
             products.map((product) => (
-              <div
+              <Card
                 key={product.id}
-                className="border p-4 mb-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
-              >
-                <h4 className="text-xl font-semibold">{product.title}</h4>
-                <p className="mt-2 text-gray-600">{product.description}</p>
-                <p className="mt-2 font-bold">
-                  ${Number(product.price).toFixed(2)}{" "}
-                  {/* Convert price to number */}
-                </p>
-              </div>
+                title={product.title}
+                description={product.description}
+                image={product.image} // Assuming you have an image field
+                price={product.price}
+                onAddToCart={() => console.log("Added to cart:", product)}
+                onViewDetails={() =>
+                  console.log("Viewing details for:", product)
+                }
+                onAddToFavorites={() =>
+                  console.log("Added to favorites:", product)
+                }
+                onEdit={() => console.log("Editing product:", product)} // Mock edit functionality
+                onDelete={() => console.log("Deleting product:", product)} // Mock delete functionality
+              />
             ))
           ) : (
             <p className="text-center">No products found.</p>
@@ -78,7 +87,6 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Modal Form */}
       {isModalOpen && <ModalForm onClose={closeModal} />}
     </div>
   );
