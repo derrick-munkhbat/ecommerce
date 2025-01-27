@@ -44,13 +44,13 @@ const Card: React.FC<CardProps> = ({
         </button>
         <button
           onClick={onViewDetails}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-gray-400 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           View Details
         </button>
         <button
           onClick={onAddToFavorites}
-          className="bg-red-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         >
           Add to Favorites {/* Heart icon for Add to Favorites */}
         </button>

@@ -8,7 +8,7 @@ const Header = () => {
           D'Zone
         </h1>
       </Link>
-      <nav className="flex justify-end mr-5">
+      {/* <nav className="flex justify-end mr-5">
         <ul className="flex items-center">
           <li className="mr-6">
             <Link href="/login">
@@ -25,7 +25,7 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </header>
   );
 };
