@@ -8,10 +8,6 @@ interface CardProps {
   image: string;
   price: string;
   onAddToCart: () => void; // Function to handle adding to cart
-  onViewDetails: () => void; // Function to handle viewing details
-  onAddToFavorites: () => void; // Function to handle adding to favorites
-  onEdit: () => void; // Function to handle editing the product
-  onDelete: () => void; // Function to handle deleting the product
 }
 
 const Card: React.FC<CardProps> = ({
@@ -20,8 +16,6 @@ const Card: React.FC<CardProps> = ({
   image,
   price,
   onAddToCart,
-  onViewDetails,
-  onAddToFavorites,
 }) => {
   return (
     <div className="border p-4 mb-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 bg-white">
@@ -41,18 +35,6 @@ const Card: React.FC<CardProps> = ({
           className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
         >
           Add to Cart
-        </button>
-        <button
-          onClick={onViewDetails}
-          className="bg-gray-400 text-white py-2 px-4 rounded hover:bg-blue-600"
-        >
-          View Details
-        </button>
-        <button
-          onClick={onAddToFavorites}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        >
-          Add to Favorites {/* Heart icon for Add to Favorites */}
         </button>
       </div>
     </div>
