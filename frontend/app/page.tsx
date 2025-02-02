@@ -22,7 +22,7 @@ const HomePage = () => {
           onClick={goToCart}
           className="mr-4 bg-green-500 text-white text-2xl font-bold py-2 px-4 rounded hover:bg-gray-600 transition duration-300"
         >
-          Cart ({cart.length}) {/* Display the cart length */}
+          Shopping Cart ({cart.length}) {/* Display the cart length */}
         </button>
       </div>
       <Products /> {/* Render the Products component */}
