@@ -1,4 +1,4 @@
-// src/components/Products.js
+// src/components/Products.tsx
 
 import React from "react";
 import Card from "./Card"; // Import the Card component
@@ -7,7 +7,11 @@ import { useCart } from "../context/CartContext"; // Import cart context
 
 const Products = () => {
   const { products, loading, error } = useFetchProducts(); // Fetch products
-  const { addToCart } = useCart(); // Access cart context functions
+  const { cart, addToCart } = useCart(); // Access cart context functions
+
+  const isInCart = (productId) => {
+    return cart.some((item) => item.id === productId); // Check if the product is in the cart
+  };
 
   if (loading) return <p className="text-center mt-5">Loading products...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
@@ -23,6 +27,7 @@ const Products = () => {
             image={product.image}
             price={product.price}
             onAddToCart={() => addToCart(product)} // Add to cart
+            isInCart={isInCart(product.id)} // Pass whether the product is in the cart
           />
         ))
       ) : (

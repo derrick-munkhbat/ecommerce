@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 
 // pages/HomePage.js
 
@@ -7,7 +6,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Products from "../components/Products"; // Import the Products component
 import { useCart } from "../context/CartContext"; // Import cart context
-
 
 const HomePage = () => {
   const router = useRouter(); // Hook to programmatically navigate

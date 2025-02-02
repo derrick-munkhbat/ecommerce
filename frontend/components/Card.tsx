@@ -8,6 +8,7 @@ interface CardProps {
   image: string;
   price: string;
   onAddToCart: () => void; // Function to handle adding to cart
+  isInCart: boolean; // New prop to indicate if the item is in the cart
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,6 +17,7 @@ const Card: React.FC<CardProps> = ({
   image,
   price,
   onAddToCart,
+  isInCart, // Destructure the new prop
 }) => {
   return (
     <div className="border p-4 mb-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 bg-white">
@@ -32,9 +34,13 @@ const Card: React.FC<CardProps> = ({
       <div className="flex justify-between mt-4 gap-2">
         <button
           onClick={onAddToCart}
-          className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+          disabled={isInCart} // Disable the button if the item is in the cart
+          className={`bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 ${
+            isInCart ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          Add to Cart
+          {isInCart ? "Added to Cart" : "Add to Cart"}{" "}
+          {/* Change button text */}
         </button>
       </div>
     </div>
